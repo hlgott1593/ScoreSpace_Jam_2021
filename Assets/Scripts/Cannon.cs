@@ -80,7 +80,7 @@ public class Cannon : MonoBehaviour
 		float distance = toTarget.magnitude;
 		float waveDistance = 1f;
 		toTarget.Normalize();
-		Vector3 toTargetPerp = Vector2.Perpendicular(toTarget);
+		Vector3 toTargetPerp = Vector2.Perpendicular(toTarget).normalized;
 
 		TargetNode firstNode = null;
 		TargetNode lastNode = null;
