@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,10 +67,16 @@ public class TargetNode : MonoBehaviour
 			}
 			else
 			{
-				NextNode.gameObject.SetActive(true);
+				NextNode.SetActive(true);
 				Destroy(gameObject);
 				MyCannon.SetTargettingLineProgress(MyCannon.TargettingLineProgress + MyCannon.TargettingLineProgressAmount);
 			}
 		}
 	}
+
+    private void SetActive(bool v)
+    {
+        gameObject.SetActive(true);
+		GetComponent<SpriteRenderer>().enabled = true;
+    }
 }
