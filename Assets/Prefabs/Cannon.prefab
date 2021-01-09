@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
+  inputReader: {fileID: 11400000, guid: 4e17133e6758c5e4dbc42a603342e3d5, type: 2}
   TargettingLine: {fileID: 0}
   TargettingLineProgress: 0
   TargettingLineProgressAmount: 0

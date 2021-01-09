@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnemyManager : MonoBehaviour
 {
 	private GameManager gameManager;
 	private List<Transform> enemySpawners;
+	[SerializeField] private bool AllowDebugControls;
 
 	[Header("Spawn Settings")]
 	[SerializeField] private float spawnRate;
@@ -53,7 +55,7 @@ public class EnemyManager : MonoBehaviour
 	void Update()
 	{
 		UpdateSpawnEnemies();
-		if (Input.GetKeyDown(KeyCode.Space)) DebugKillOldest();
+		if (AllowDebugControls && Keyboard.current.spaceKey.wasPressedThisFrame) DebugKillOldest();
 	}
 
 	private void DebugKillOldest() {

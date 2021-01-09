@@ -3,14 +3,10 @@ using UnityEngine;
 
 namespace Drops {
     public class HealthPickup : Drop {
-        
-        public override void Pickup() {
-            Debug.Log("pickup");
+        protected override void Pickup() {
             foreach (var building in FindObjectsOfType<Building>()) {
                 building.Health += 100;
             }
-
-            Cleanup();
         }
     }
 }

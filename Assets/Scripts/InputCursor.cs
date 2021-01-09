@@ -23,8 +23,4 @@ public class InputCursor : MonoBehaviour
 	{
 		transform.position = cannon.GetMousePos();
 	}
-
-	private void OnTriggerStay(Collider other) {
-		Debug.Log(other.name);
-	}
 }

@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class Cannon : MonoBehaviour
 {
 	private Camera mainCamera;
 	[SerializeField] private GameManager gameManager;
+	[SerializeField] private InputReader inputReader;
 	private bool shooting;
 	private Vector3 targetLocation;
 
@@ -26,6 +30,14 @@ public class Cannon : MonoBehaviour
 	[SerializeField] private AudioClip[] onClickHasNext;
 	[SerializeField] private AudioClip[] onClickLast;
 	private AudioSource audioSource;
+
+	private void OnEnable() {
+		inputReader.FireEvent += PlaceBombs;
+	}
+
+	private void OnDisable() {
+		inputReader.FireEvent -= PlaceBombs;
+	}
 
 	public void PlayOnClick(bool hasNext = true)
 	{
@@ -49,28 +61,25 @@ public class Cannon : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		UpdateInput();
+		UpdateCannonRotation();
 		UpdateTimers();
 	}
 
-	/// <summary>
-	/// Checks for mouse input to begin the bomb teleportation process.
-	/// </summary>
-	private void UpdateInput()
+	private void UpdateCannonRotation()
 	{
-		// Place bombs
-		if (Input.GetKeyDown(KeyCode.Mouse0) && coolDownTimer <= 0f && !shooting)
-		{
+		// Look at the mouse
+		Vector3 toMouse = (GetMousePos() - transform.position).normalized;
+		transform.rotation = XLookRotation(toMouse, Vector3.up);
+	}
+
+	private void PlaceBombs() {
+		if (coolDownTimer <= 0f && !shooting) {
 			coolDownTimer = coolDownTime;
 			shooting = true;
 			targetLocation = GetMousePos();
 			gameManager.SlowDownTime();
 			BeginTargetting();
 		}
-
-		// Look at the mouse
-		Vector3 toMouse = (GetMousePos() - transform.position).normalized;
-		transform.rotation = XLookRotation(toMouse, Vector3.up);
 	}
 
 	/// <summary>
@@ -208,7 +217,7 @@ public class Cannon : MonoBehaviour
 	/// </summary>
 	public Vector3 GetMousePos()
 	{
-		Vector2 mouse = Input.mousePosition;
+		Vector2 mouse = Mouse.current.position.ReadValue();
 		Vector3 point = mainCamera.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 0f)); //mainCamera.nearClipPlane));
 		point.z = 0f;
 		return point;

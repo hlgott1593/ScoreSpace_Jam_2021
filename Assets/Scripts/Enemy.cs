@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
 	}
 
 	private void HandleDrop() {
-		return;
+		// return;
 		// var roll = Random.Range(0, 100);
 		// if (roll < 75) return;
 		var drop = drops[0];

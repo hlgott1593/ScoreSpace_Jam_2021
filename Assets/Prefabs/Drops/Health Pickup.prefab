@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8058439137379317415}
   - component: {fileID: -3980497923502092206}
   - component: {fileID: -2175433417762428286}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Health Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aebb66fd08c448ea496b4d5e9490014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputReader: {fileID: 11400000, guid: 4e17133e6758c5e4dbc42a603342e3d5, type: 2}
+  cursorColliding: 0
 --- !u!135 &-3980497923502092206
 SphereCollider:
   m_ObjectHideFlags: 0
