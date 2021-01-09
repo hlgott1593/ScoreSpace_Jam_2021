@@ -58,7 +58,7 @@ public class EnemyManager : MonoBehaviour
 	private void UpdateSpawnEnemies()
 	{
 		spawnTimer -= Time.deltaTime;
-		if (spawnTimer <= 0f)
+		if (spawnTimer <= 0f && EnemyCount < 5)
 		{
 			SpawnEnemy();
 			spawnTimer = spawnRate;

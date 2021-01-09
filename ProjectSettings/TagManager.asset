@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Building
   - Cursor
+  - Explosion
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Enemy
   - Building
   - Targeting
-  - 
+  - Explosion
   - 
   - 
   - 

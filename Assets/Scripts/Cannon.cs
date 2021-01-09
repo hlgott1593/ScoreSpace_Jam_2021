@@ -76,12 +76,18 @@ public class Cannon : MonoBehaviour
 	/// </summary>
 	public void BeginTargetting()
 	{
+		Vector3 toTarget = targetLocation - transform.position;
+		float distance = toTarget.magnitude;
+		float waveDistance = 1f;
+		toTarget.Normalize();
+		Vector3 toTargetPerp = Vector2.Perpendicular(toTarget);
+
 		TargetNode firstNode = null;
 		TargetNode lastNode = null;
-		for (int i = 0; i < 5; i++)
+		int numNodes = 5;
+		for (int i = 0; i < numNodes; i++)
 		{
 			TargetNode node = Instantiate(targetNodePrefab, gameManager.TargettingNodes).GetComponent<TargetNode>();
-			node.transform.position = RandomPosition(5f, 5f);
 			node.TimeToSelect = 2f;
 			node.MyCannon = this;
 			if (lastNode != null)
@@ -94,11 +100,17 @@ public class Cannon : MonoBehaviour
 				firstNode = node;
 			}
 			lastNode = node;
+
+			float distanceRatio = (float)i / (numNodes - 1);
+			Vector3 position = new Vector3(toTarget.x * distance * distanceRatio, toTarget.y * distance * distanceRatio);
+			float angle = distanceRatio * 360f * Mathf.Deg2Rad;
+			position += new Vector3(toTargetPerp.x * Mathf.Sin(angle) * waveDistance, toTargetPerp.y * Mathf.Sin(angle) * waveDistance, 0f);
+			node.transform.position = position;
 		}
 
-		firstNode.TimeToSelect = 2f;
+		firstNode.TimeToSelect = 3f;
 		firstNode.transform.position = transform.position; // So we always begin by hovering over the cannon
-		lastNode.transform.position = targetLocation;
+		lastNode.transform.position = targetLocation; // So the final one is always over the target
 	}
 
 	/// <summary>

@@ -25,6 +25,19 @@ public class Building : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Explosions will damage buildings.
+	/// </summary>
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("Explosion"))
+		{
+			Explosion explosion = other.GetComponent<Explosion>();
+			Health -= explosion.Damage;
+			healthText.text = "" + (int)Health;
+		}
+	}
+
+	/// <summary>
 	/// When an enemy is overlapping the building, apply damage
 	/// </summary>
 	private void OnTriggerStay(Collider other)

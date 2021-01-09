@@ -62,5 +62,6 @@ public class TargetNode : MonoBehaviour
 				Destroy(gameObject);
 			}
 		}
+
 	}
 }
