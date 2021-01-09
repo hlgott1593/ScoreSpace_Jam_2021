@@ -99,7 +99,8 @@ MonoBehaviour:
   MyCannon: {fileID: 0}
   TimeToSelect: 0
   NextNode: {fileID: 0}
-<<<<<<< HEAD
+  inputReader: {fileID: 11400000, guid: 4e17133e6758c5e4dbc42a603342e3d5, type: 2}
+  cursorColliding: 0
 --- !u!58 &-5470625340232183061
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -116,7 +117,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-=======
-  inputReader: {fileID: 11400000, guid: 4e17133e6758c5e4dbc42a603342e3d5, type: 2}
-  cursorColliding: 0
->>>>>>> master

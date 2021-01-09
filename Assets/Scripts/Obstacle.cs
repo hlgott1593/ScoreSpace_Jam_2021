@@ -42,7 +42,6 @@ public class Obstacle : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		print(collision.collider.tag);
 		if (collision.collider.CompareTag("Enemy"))
 		{
 			Enemy enemy = collision.collider.GetComponent<Enemy>();

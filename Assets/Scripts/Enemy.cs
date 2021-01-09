@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
 	
 	void Update()
 	{
-		OrbitalMovement();
+		// OrbitalMovement();
 		UpdateSpinEffect();
 	}
 
@@ -70,20 +70,20 @@ public class Enemy : MonoBehaviour
 		float distance = toCenter.magnitude;
 		float range = attacking ? attackRange : orbitRange;
 
-		// // Move to the correct range, and orbit when in range
-		// if (distance > range + 0.1f)
-		// {
-		// 	transform.Translate(toCenter.normalized * moveSpeed * Time.deltaTime);
-		// }
-		// else if (distance < range - 0.1f)
-		// {
-		// 	transform.Translate(toCenter.normalized * -moveSpeed * Time.deltaTime);
-		// }
-		// else
-		// {
-		// 	Vector3 orbitDirection = Vector2.Perpendicular(toCenter);
-		// 	transform.Translate(orbitDirection.normalized * moveSpeed * Time.deltaTime);
-		// }
+		// Move to the correct range, and orbit when in range
+		if (distance > range + 0.1f)
+		{
+			transform.Translate(toCenter.normalized * moveSpeed * Time.deltaTime);
+		}
+		else if (distance < range - 0.1f)
+		{
+			transform.Translate(toCenter.normalized * -moveSpeed * Time.deltaTime);
+		}
+		else
+		{
+			Vector3 orbitDirection = Vector2.Perpendicular(toCenter);
+			transform.Translate(orbitDirection.normalized * moveSpeed * Time.deltaTime);
+		}
 
 		// Every so often, change behavior
 		behaviorTimer -= Time.deltaTime;
@@ -124,6 +124,7 @@ public class Enemy : MonoBehaviour
 		Instantiate(drop, transform.position, Quaternion.identity);
 	}
 
+
 	/// <summary>
 	/// Blow up after colliding with a bomb.
 	/// </summary>
@@ -131,6 +132,7 @@ public class Enemy : MonoBehaviour
 	{
 		if (other.CompareTag("Bomb"))
 		{
+			print("Bomb");
 			Bomb bomb = other.GetComponent<Bomb>();
 			if (bomb.EarlyCheck)
 			{
@@ -141,6 +143,7 @@ public class Enemy : MonoBehaviour
 
 		if (other.CompareTag("Explosion"))
 		{
+			print("Explosion");
 			Explosion explosion = other.GetComponent<Explosion>();
 			Health -= explosion.Damage;
 			healthText.text = "" + (int)Health;

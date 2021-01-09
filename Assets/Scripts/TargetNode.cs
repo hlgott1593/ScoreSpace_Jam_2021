@@ -71,7 +71,7 @@ public class TargetNode : MonoBehaviour
 	}
 
 
-	private void OnTriggerEnter(Collider _other)
+	private void OnTriggerEnter2D(Collider2D _other)
 	{
 		if (!_other.CompareTag("Cursor")) return;
 		cursorColliding = true;
@@ -81,7 +81,7 @@ public class TargetNode : MonoBehaviour
 	/// If no next node was configured, this is the last one, finalize it with the cannon so it spawns the bomb.
 	/// If not, activate the next node for the player to target.
 	/// </summary>
-	private void OnTriggerExit2D(Collider _other)
+	private void OnTriggerExit2D(Collider2D _other)
 	{
 		if (!_other.CompareTag("Cursor")) return;
 		cursorColliding = false;
