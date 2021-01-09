@@ -48,7 +48,7 @@ public class TargetNode : MonoBehaviour
 	//	CursorCollision(_other);
 	//}
 
-	private void OnTriggerStay(Collider _other)
+	private void OnTriggerStay2D(Collider2D _other)
 	{
 		CursorCollision(_other);
 	}
@@ -57,7 +57,7 @@ public class TargetNode : MonoBehaviour
 	/// If no next node was configured, this is the last one, finalize it with the cannon so it spawns the bomb.
 	/// If not, activate the next node for the player to target.
 	/// </summary>
-	private void CursorCollision(Collider _other)
+	private void CursorCollision(Collider2D _other)
 	{
 		if (_other.CompareTag("Cursor") && Input.GetKey(KeyCode.Mouse0))
 		{

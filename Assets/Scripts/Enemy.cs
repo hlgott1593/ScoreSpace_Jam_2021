@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
 	{
 		healthText.text = "" + (int)Health;
 		mySprite = transform.Find("Sprite");
+		
 	}
 
 	// Update is called once per frame
@@ -36,6 +37,12 @@ public class Enemy : MonoBehaviour
 	{
 		OrbitalMovement();
 		UpdateSpinEffect();
+	}
+
+	void OnFixedUpdate()
+	{
+		// gameObject.GetComponent<Rigidbody>().AddForce(10, 0, 0);
+		gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(20, 0));
 	}
 
 	/// <summary>
@@ -60,20 +67,20 @@ public class Enemy : MonoBehaviour
 		float distance = toCenter.magnitude;
 		float range = attacking ? attackRange : orbitRange;
 
-		// Move to the correct range, and orbit when in range
-		if (distance > range + 0.1f)
-		{
-			transform.Translate(toCenter.normalized * moveSpeed * Time.deltaTime);
-		}
-		else if (distance < range - 0.1f)
-		{
-			transform.Translate(toCenter.normalized * -moveSpeed * Time.deltaTime);
-		}
-		else
-		{
-			Vector3 orbitDirection = Vector2.Perpendicular(toCenter);
-			transform.Translate(orbitDirection.normalized * moveSpeed * Time.deltaTime);
-		}
+		// // Move to the correct range, and orbit when in range
+		// if (distance > range + 0.1f)
+		// {
+		// 	transform.Translate(toCenter.normalized * moveSpeed * Time.deltaTime);
+		// }
+		// else if (distance < range - 0.1f)
+		// {
+		// 	transform.Translate(toCenter.normalized * -moveSpeed * Time.deltaTime);
+		// }
+		// else
+		// {
+		// 	Vector3 orbitDirection = Vector2.Perpendicular(toCenter);
+		// 	transform.Translate(orbitDirection.normalized * moveSpeed * Time.deltaTime);
+		// }
 
 		// Every so often, change behavior
 		behaviorTimer -= Time.deltaTime;
@@ -98,17 +105,33 @@ public class Enemy : MonoBehaviour
 	/// <summary>
 	/// Destroys the enemy and increases score.
 	/// </summary>
-	private void Kill()
+	public void Kill()
 	{
 		GameManager.IncreaseScore(scoreGranted);
 		Instantiate(DeathExplosion, transform.position, Quaternion.identity);
 		Destroy(gameObject);
 	}
 
+
+	// public void OnColliderEnter(Collider other)
+	// {
+	// 	if (other.CompareTag("Obstacle"))
+	// 	{
+	// 		print("enemy");
+	// 		Obstacle obstacle = other.GetComponent<Obstacle>();
+	// 		Health -= obstacle.Damage;
+	// 		healthText.text = "" + (int)Health;
+	// 		if (Health <= 0)
+	// 		{
+	// 			Kill();
+	// 		}
+	// 	}
+	// }
+
 	/// <summary>
 	/// Blow up after colliding with a bomb.
 	/// </summary>
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Bomb"))
 		{
@@ -124,6 +147,18 @@ public class Enemy : MonoBehaviour
 		{
 			Explosion explosion = other.GetComponent<Explosion>();
 			Health -= explosion.Damage;
+			healthText.text = "" + (int)Health;
+			if (Health <= 0)
+			{
+				Kill();
+			}
+		}
+
+		if (other.CompareTag("Obstacle"))
+		{
+			print("enemy");
+			Obstacle obstacle = other.GetComponent<Obstacle>();
+			Health -= obstacle.Damage;
 			healthText.text = "" + (int)Health;
 			if (Health <= 0)
 			{

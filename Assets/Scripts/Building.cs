@@ -27,7 +27,7 @@ public class Building : MonoBehaviour
 	/// <summary>
 	/// Explosions will damage buildings.
 	/// </summary>
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Explosion"))
 		{
@@ -37,7 +37,7 @@ public class Building : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerStay(Collider other)
+	private void OnTriggerStay2D(Collider2D other)
 	{
 		if (other.gameObject.CompareTag("Enemy"))
 		{
@@ -50,7 +50,7 @@ public class Building : MonoBehaviour
 	/// <summary>
 	/// When an enemy is overlapping the building, apply damage
 	/// </summary>
-	private void OnCollisionStay(Collision collision)
+	private void OnCollisionStay2D(Collision2D collision)
 	{
 		if (collision.gameObject.CompareTag("Enemy"))
 		{
