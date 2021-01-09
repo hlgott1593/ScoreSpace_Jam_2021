@@ -9,9 +9,9 @@ public class Cannon : MonoBehaviour
 {
 	private Camera mainCamera;
 	[SerializeField] private GameManager gameManager;
-	[SerializeField] private InputReader inputReader;
 	private bool shooting;
 	private Vector3 targetLocation;
+	[SerializeField] private InputReader inputReader;
 
 	public LineRenderer TargettingLine;
 	public float TargettingLineProgress;
