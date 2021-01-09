@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnemyManager : MonoBehaviour
 {
 	private GameManager gameManager;
 	private List<Transform> enemySpawners;
+	[SerializeField] private bool AllowDebugControls;
 
 	[Header("Spawn Settings")]
 	[SerializeField] private float spawnRate;
@@ -13,6 +15,8 @@ public class EnemyManager : MonoBehaviour
 
 	[Header("Prefabs")]
 	[SerializeField] private GameObject enemyPrefab;
+
+	private List<Enemy> enemies;
 
 	/// <summary>
 	/// Let's us know how many enemies there are.
@@ -30,6 +34,7 @@ public class EnemyManager : MonoBehaviour
 	void Start()
 	{
 		gameManager = transform.parent.GetComponent<GameManager>();
+		enemies = new List<Enemy>();
 		LoadSpawners();
 	}
 
@@ -50,6 +55,13 @@ public class EnemyManager : MonoBehaviour
 	void Update()
 	{
 		UpdateSpawnEnemies();
+		if (AllowDebugControls && Keyboard.current.spaceKey.wasPressedThisFrame) DebugKillOldest();
+	}
+
+	private void DebugKillOldest() {
+		if (enemies.Count <= 0) return;
+		enemies[0].Kill();
+		enemies.RemoveAt(0);
 	}
 
 	/// <summary>
@@ -74,5 +86,6 @@ public class EnemyManager : MonoBehaviour
 		Enemy enemy = Instantiate(enemyPrefab, transform).GetComponent<Enemy>();
 		enemy.transform.position = spawner.position;
 		enemy.GameManager = gameManager;
+		enemies.Add(enemy);
 	}
 }

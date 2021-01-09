@@ -354,3 +354,5 @@ MonoBehaviour:
   moveSpeed: 2
   spriteRotateSpeed: 90
   DeathExplosion: {fileID: 4478007168789551371, guid: 82485aaf734007e43ac1018a18acf60c, type: 3}
+  drops:
+  - {fileID: 8058439137379317415, guid: c827a18002bfb594fa512067a5a0c401, type: 3}

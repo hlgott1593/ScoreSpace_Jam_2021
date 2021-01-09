@@ -18,6 +18,7 @@ public class Building : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		healthText.text = "" + (int)Health;
 		if (Health <= 0f)
 		{
 			Destroy(gameObject);
@@ -33,7 +34,6 @@ public class Building : MonoBehaviour
 		{
 			Explosion explosion = other.GetComponent<Explosion>();
 			Health -= explosion.Damage;
-			healthText.text = "" + (int)Health;
 		}
 	}
 
@@ -43,7 +43,6 @@ public class Building : MonoBehaviour
 		{
 			Enemy enemy = other.gameObject.GetComponent<Enemy>();
 			Health -= enemy.Damage * Time.deltaTime;
-			healthText.text = "" + (int)Health;
 		}
 	}
 
@@ -56,7 +55,6 @@ public class Building : MonoBehaviour
 		{
 			Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 			Health -= enemy.Damage * Time.deltaTime;
-			healthText.text = "" + (int)Health;
 		}
 	}
 }
