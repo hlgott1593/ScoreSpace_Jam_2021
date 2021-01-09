@@ -10,7 +10,8 @@ public class TargetNode : MonoBehaviour
 	public Cannon MyCannon;
 	public float TimeToSelect;
 	public TargetNode NextNode;
-
+	
+	
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -63,10 +64,12 @@ public class TargetNode : MonoBehaviour
 		{
 			if (NextNode == null)
 			{
+				MyCannon.PlayOnClick(false);
 				MyCannon.FinalizeTarget();
 			}
 			else
 			{
+				MyCannon.PlayOnClick(true);
 				NextNode.SetActive(true);
 				Destroy(gameObject);
 				MyCannon.SetTargettingLineProgress(MyCannon.TargettingLineProgress + MyCannon.TargettingLineProgressAmount);
