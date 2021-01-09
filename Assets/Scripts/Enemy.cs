@@ -33,12 +33,19 @@ public class Enemy : MonoBehaviour
 	{
 		healthText.text = "" + (int)Health;
 		mySprite = transform.Find("Sprite");
+		
 	}
 	
 	void Update()
 	{
-		OrbitalMovement();
+		// OrbitalMovement();
 		UpdateSpinEffect();
+	}
+
+	void OnFixedUpdate()
+	{
+		// gameObject.GetComponent<Rigidbody>().AddForce(10, 0, 0);
+		gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(20, 0));
 	}
 
 	/// <summary>
@@ -117,13 +124,15 @@ public class Enemy : MonoBehaviour
 		Instantiate(drop, transform.position, Quaternion.identity);
 	}
 
+
 	/// <summary>
 	/// Blow up after colliding with a bomb.
 	/// </summary>
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Bomb"))
 		{
+			print("Bomb");
 			Bomb bomb = other.GetComponent<Bomb>();
 			if (bomb.EarlyCheck)
 			{
@@ -134,8 +143,21 @@ public class Enemy : MonoBehaviour
 
 		if (other.CompareTag("Explosion"))
 		{
+			print("Explosion");
 			Explosion explosion = other.GetComponent<Explosion>();
 			Health -= explosion.Damage;
+			healthText.text = "" + (int)Health;
+			if (Health <= 0)
+			{
+				Kill();
+			}
+		}
+
+		if (other.CompareTag("Obstacle"))
+		{
+			print("enemy");
+			Obstacle obstacle = other.GetComponent<Obstacle>();
+			Health -= obstacle.Damage;
 			healthText.text = "" + (int)Health;
 			if (Health <= 0)
 			{

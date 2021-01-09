@@ -202,7 +202,7 @@ public class Cannon : MonoBehaviour
 	{
 		gameManager.NormalizeTime();
 		SpawnBomb(bombPrefab, targetLocation);
-		shooting = false;
+		StartCoroutine(EnableFiringAfterDelay());
 
 		foreach (Transform child in gameManager.TargettingNodes)
 		{
@@ -210,6 +210,11 @@ public class Cannon : MonoBehaviour
 		}
 
 		TargettingLine.gameObject.SetActive(false);
+	}
+
+	private IEnumerator EnableFiringAfterDelay() {
+		yield return new  WaitForSeconds(0.2f);
+		shooting = false;
 	}
 
 	/// <summary>

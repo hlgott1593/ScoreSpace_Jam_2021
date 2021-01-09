@@ -9,6 +9,7 @@ TagManager:
   - Building
   - Cursor
   - Explosion
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -23,8 +24,8 @@ TagManager:
   - Building
   - Targeting
   - Explosion
+  - Obstacle
   - Drop
-  - 
   - 
   - 
   - 

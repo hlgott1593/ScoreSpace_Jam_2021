@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -23,13 +24,14 @@ public class InputReader : MonoBehaviour, PlayerControls.IPlayerActions {
     }
     
     public void OnFire(InputAction.CallbackContext context) {
-        if (context.performed) ShouldFire = true;
+        if (context.performed)
+            ShouldFire = true;
         else ShouldFire = false;
     }
 
     public void OnLook(InputAction.CallbackContext context) { }
 
     private void Update() {
-        // if(ShouldFire) FireEvent.Invoke();
+        if (ShouldFire) FireEvent.Invoke();
     }
 }

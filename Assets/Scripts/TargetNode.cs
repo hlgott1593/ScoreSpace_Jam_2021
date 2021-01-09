@@ -13,13 +13,13 @@ public class TargetNode : MonoBehaviour {
     [SerializeField] private InputReader inputReader;
 
     private void OnEnable() {
-        return;
         inputReader = FindObjectOfType<InputReader>();
+        if (inputReader == null) return;
         inputReader.FireEvent += HandleFire;
     }
 
     private void OnDisable() {
-        return;
+        if (inputReader == null) return;
         inputReader.FireEvent -= HandleFire;
     }
 
@@ -54,6 +54,7 @@ public class TargetNode : MonoBehaviour {
         //UpdateSize();
     }
 
+
     /// <summary>
     /// Keep the size of the node accurate with how much time is left.
     /// </summary>
@@ -67,15 +68,21 @@ public class TargetNode : MonoBehaviour {
         transform.localScale = new Vector3(newScale, newScale, newScale);
     }
 
-    private void OnTriggerEnter(Collider _other) {
-        if (!_other.CompareTag("Cursor")) return;
-        cursorColliding = true;
-    }
+	private void OnTriggerEnter2D(Collider2D _other)
+	{
+		if (!_other.CompareTag("Cursor")) return;
+		cursorColliding = true;
+	}
 
-    private void OnTriggerExit(Collider _other) {
-        if (!_other.CompareTag("Cursor")) return;
-        cursorColliding = false;
-    }
+	/// <summary>
+	/// If no next node was configured, this is the last one, finalize it with the cannon so it spawns the bomb.
+	/// If not, activate the next node for the player to target.
+	/// </summary>
+	private void OnTriggerExit2D(Collider2D _other)
+	{
+		if (!_other.CompareTag("Cursor")) return;
+		cursorColliding = false;
+	}
 
     private void SetActive(bool v) {
         gameObject.SetActive(true);
