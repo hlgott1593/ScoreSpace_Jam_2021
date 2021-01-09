@@ -14,6 +14,8 @@ public class EnemyManager : MonoBehaviour
 	[Header("Prefabs")]
 	[SerializeField] private GameObject enemyPrefab;
 
+	private List<Enemy> enemies;
+
 	/// <summary>
 	/// Let's us know how many enemies there are.
 	/// Subtracting 1 because the spawners are nested under here too.
@@ -30,6 +32,7 @@ public class EnemyManager : MonoBehaviour
 	void Start()
 	{
 		gameManager = transform.parent.GetComponent<GameManager>();
+		enemies = new List<Enemy>();
 		LoadSpawners();
 	}
 
@@ -50,6 +53,13 @@ public class EnemyManager : MonoBehaviour
 	void Update()
 	{
 		UpdateSpawnEnemies();
+		if (Input.GetKeyDown(KeyCode.Space)) DebugKillOldest();
+	}
+
+	private void DebugKillOldest() {
+		if (enemies.Count <= 0) return;
+		enemies[0].Kill();
+		enemies.RemoveAt(0);
 	}
 
 	/// <summary>
@@ -74,5 +84,6 @@ public class EnemyManager : MonoBehaviour
 		Enemy enemy = Instantiate(enemyPrefab, transform).GetComponent<Enemy>();
 		enemy.transform.position = spawner.position;
 		enemy.GameManager = gameManager;
+		enemies.Add(enemy);
 	}
 }

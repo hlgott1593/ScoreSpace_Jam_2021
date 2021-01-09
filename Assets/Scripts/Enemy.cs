@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -24,14 +26,15 @@ public class Enemy : MonoBehaviour
 	[Header("Pefabs")]
 	[SerializeField] private GameObject DeathExplosion;
 
-	// Start is called before the first frame update
+	[Header("Drops")] [SerializeField] private List<Drop> drops;
+	
+	
 	void Start()
 	{
 		healthText.text = "" + (int)Health;
 		mySprite = transform.Find("Sprite");
 	}
-
-	// Update is called once per frame
+	
 	void Update()
 	{
 		OrbitalMovement();
@@ -98,11 +101,20 @@ public class Enemy : MonoBehaviour
 	/// <summary>
 	/// Destroys the enemy and increases score.
 	/// </summary>
-	private void Kill()
+	public void Kill()
 	{
 		GameManager.IncreaseScore(scoreGranted);
 		Instantiate(DeathExplosion, transform.position, Quaternion.identity);
+		HandleDrop();
 		Destroy(gameObject);
+	}
+
+	private void HandleDrop() {
+		return;
+		// var roll = Random.Range(0, 100);
+		// if (roll < 75) return;
+		var drop = drops[0];
+		Instantiate(drop, transform.position, Quaternion.identity);
 	}
 
 	/// <summary>

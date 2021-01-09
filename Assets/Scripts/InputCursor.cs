@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,5 +22,9 @@ public class InputCursor : MonoBehaviour
 	private void UpdatePosition()
 	{
 		transform.position = cannon.GetMousePos();
+	}
+
+	private void OnTriggerStay(Collider other) {
+		Debug.Log(other.name);
 	}
 }
