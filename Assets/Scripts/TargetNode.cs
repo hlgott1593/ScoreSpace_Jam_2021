@@ -8,7 +8,6 @@ public class TargetNode : MonoBehaviour
 	private float startingScale;
 	public Cannon MyCannon;
 	public float TimeToSelect;
-
 	public TargetNode NextNode;
 
 	// Start is called before the first frame update
@@ -26,8 +25,7 @@ public class TargetNode : MonoBehaviour
 		{
 			MyCannon.FailedTarget();
 		}
-
-		UpdateSize();
+		//UpdateSize();
 	}
 
 	/// <summary>
@@ -44,13 +42,23 @@ public class TargetNode : MonoBehaviour
 		transform.localScale = new Vector3(newScale, newScale, newScale);
 	}
 
+	//private void OnTriggerEnter(Collider _other)
+	//{
+	//	CursorCollision(_other);
+	//}
+
+	private void OnTriggerStay(Collider _other)
+	{
+		CursorCollision(_other);
+	}
+
 	/// <summary>
 	/// If no next node was configured, this is the last one, finalize it with the cannon so it spawns the bomb.
 	/// If not, activate the next node for the player to target.
 	/// </summary>
-	private void OnTriggerEnter(Collider other)
+	private void CursorCollision(Collider _other)
 	{
-		if (other.CompareTag("Cursor"))
+		if (_other.CompareTag("Cursor") && Input.GetKey(KeyCode.Mouse0))
 		{
 			if (NextNode == null)
 			{
@@ -60,8 +68,8 @@ public class TargetNode : MonoBehaviour
 			{
 				NextNode.gameObject.SetActive(true);
 				Destroy(gameObject);
+				MyCannon.SetTargettingLineProgress(MyCannon.TargettingLineProgress + MyCannon.TargettingLineProgressAmount);
 			}
 		}
-
 	}
 }

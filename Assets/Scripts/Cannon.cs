@@ -5,9 +5,13 @@ using UnityEngine;
 public class Cannon : MonoBehaviour
 {
 	private Camera mainCamera;
-	[SerializeField] GameManager gameManager;
+	[SerializeField] private GameManager gameManager;
 	private bool shooting;
 	private Vector3 targetLocation;
+
+	public LineRenderer TargettingLine;
+	public float TargettingLineProgress;
+	public float TargettingLineProgressAmount;
 
 	[Header("Settings")]
 	private float coolDownTime;
@@ -76,6 +80,7 @@ public class Cannon : MonoBehaviour
 	/// </summary>
 	public void BeginTargetting()
 	{
+		List<Vector3> linePositions = new List<Vector3>();
 		Vector3 toTarget = targetLocation - transform.position;
 		float distance = toTarget.magnitude;
 		float waveDistance = 1f;
@@ -84,11 +89,11 @@ public class Cannon : MonoBehaviour
 
 		TargetNode firstNode = null;
 		TargetNode lastNode = null;
-		int numNodes = 5;
+		int numNodes = 10;
 		for (int i = 0; i < numNodes; i++)
 		{
 			TargetNode node = Instantiate(targetNodePrefab, gameManager.TargettingNodes).GetComponent<TargetNode>();
-			node.TimeToSelect = 2f;
+			node.TimeToSelect = 1f;
 			node.MyCannon = this;
 			if (lastNode != null)
 			{
@@ -106,11 +111,44 @@ public class Cannon : MonoBehaviour
 			float angle = distanceRatio * 360f * Mathf.Deg2Rad;
 			position += new Vector3(toTargetPerp.x * Mathf.Sin(angle) * waveDistance, toTargetPerp.y * Mathf.Sin(angle) * waveDistance, 0f);
 			node.transform.position = position;
+			linePositions.Add(position);
 		}
 
 		firstNode.TimeToSelect = 3f;
 		firstNode.transform.position = transform.position; // So we always begin by hovering over the cannon
+		firstNode.GetComponent<SpriteRenderer>().enabled = true;
 		lastNode.transform.position = targetLocation; // So the final one is always over the target
+
+		TargettingLine.positionCount = numNodes;
+		TargettingLine.SetPositions(linePositions.ToArray());
+		TargettingLine.gameObject.SetActive(true);
+
+		SetTargettingLineProgress(0f);
+		TargettingLineProgressAmount = 1f / numNodes; 
+	}
+
+	public void SetTargettingLineProgress(float _middleTime)
+	{
+		float preTime = _middleTime - 0.2f;
+		float postTime = _middleTime + 0.2f;
+		if (preTime < 0f)
+		{
+			preTime = 0f;
+		}
+		if (postTime > 1f)
+		{
+			postTime = 1f;
+		}
+
+		Gradient gradient = TargettingLine.colorGradient;
+		GradientAlphaKey[] alphaKeys = gradient.alphaKeys;
+		alphaKeys[1].time = preTime;
+		alphaKeys[2].time = _middleTime;
+		alphaKeys[3].time = postTime;
+		gradient.SetKeys(gradient.colorKeys, alphaKeys);
+		TargettingLine.colorGradient = gradient;
+
+		TargettingLineProgress = _middleTime;
 	}
 
 	/// <summary>
@@ -126,6 +164,8 @@ public class Cannon : MonoBehaviour
 		{
 			Destroy(child.gameObject);
 		}
+
+		TargettingLine.gameObject.SetActive(false);
 	}
 
 	/// <summary>
@@ -141,6 +181,8 @@ public class Cannon : MonoBehaviour
 		{
 			Destroy(child.gameObject);
 		}
+
+		TargettingLine.gameObject.SetActive(false);
 	}
 
 	/// <summary>
