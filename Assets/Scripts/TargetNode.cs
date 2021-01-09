@@ -18,7 +18,7 @@ public class TargetNode : MonoBehaviour
 	}
 
 	private void OnDisable() {
-		inputReader.FireEvent += HandleFire;
+		inputReader.FireEvent -= HandleFire;
 	}
 
 	private void HandleFire() {
