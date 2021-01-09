@@ -10,8 +10,34 @@ public class TargetNode : MonoBehaviour
 	public Cannon MyCannon;
 	public float TimeToSelect;
 	public TargetNode NextNode;
-	
-	
+	[SerializeField] private InputReader inputReader;
+	[SerializeField] private bool cursorColliding;
+
+	private void OnEnable() {
+		inputReader.FireEvent += HandleFire;
+	}
+
+	private void OnDisable() {
+		inputReader.FireEvent += HandleFire;
+	}
+
+	private void HandleFire() {
+		if (!cursorColliding) return;
+		
+		if (NextNode == null)
+		{
+			MyCannon.PlayOnClick(false);
+			MyCannon.FinalizeTarget();
+		}
+		else
+		{
+			MyCannon.PlayOnClick(true);
+			NextNode.SetActive(true);
+			Destroy(gameObject);
+			MyCannon.SetTargettingLineProgress(MyCannon.TargettingLineProgress + MyCannon.TargettingLineProgressAmount);
+		}
+	}
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -44,40 +70,19 @@ public class TargetNode : MonoBehaviour
 		transform.localScale = new Vector3(newScale, newScale, newScale);
 	}
 
-	//private void OnTriggerEnter(Collider _other)
-	//{
-	//	CursorCollision(_other);
-	//}
-
-	private void OnTriggerStay(Collider _other)
+	private void OnTriggerEnter(Collider _other)
 	{
-		CursorCollision(_other);
+		if (!_other.CompareTag("Cursor")) return;
+		cursorColliding = true;
 	}
 
-	/// <summary>
-	/// If no next node was configured, this is the last one, finalize it with the cannon so it spawns the bomb.
-	/// If not, activate the next node for the player to target.
-	/// </summary>
-	private void CursorCollision(Collider _other)
+	private void OnTriggerExit(Collider _other)
 	{
-		if (_other.CompareTag("Cursor") && Input.GetKey(KeyCode.Mouse0))
-		{
-			if (NextNode == null)
-			{
-				MyCannon.PlayOnClick(false);
-				MyCannon.FinalizeTarget();
-			}
-			else
-			{
-				MyCannon.PlayOnClick(true);
-				NextNode.SetActive(true);
-				Destroy(gameObject);
-				MyCannon.SetTargettingLineProgress(MyCannon.TargettingLineProgress + MyCannon.TargettingLineProgressAmount);
-			}
-		}
+		if (!_other.CompareTag("Cursor")) return;
+		cursorColliding = false;
 	}
 
-    private void SetActive(bool v)
+	private void SetActive(bool v)
     {
         gameObject.SetActive(true);
 		GetComponent<SpriteRenderer>().enabled = true;
