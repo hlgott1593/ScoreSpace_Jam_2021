@@ -21,11 +21,29 @@ public class Cannon : MonoBehaviour
 	[SerializeField] private GameObject bombPrefab;
 	[SerializeField] private GameObject targetNodePrefab;
 
+
+	[Header("SFX")] 
+	[SerializeField] private AudioClip[] onClickHasNext;
+	[SerializeField] private AudioClip[] onClickLast;
+	private AudioSource audioSource;
+
+	public void PlayOnClick(bool hasNext = true)
+	{
+		if (!hasNext)
+		{
+			audioSource.PlayOneShot(onClickLast[Random.Range(0,onClickLast.Length)]);
+		}
+		
+		audioSource.PlayOneShot(onClickHasNext[Random.Range(0,onClickHasNext.Length)]);
+		
+	}
+	
 	// Start is called before the first frame update
 	void Start()
 	{
 		mainCamera = Camera.main;
 		gameManager = transform.parent.GetComponent<GameManager>();
+		audioSource = GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame

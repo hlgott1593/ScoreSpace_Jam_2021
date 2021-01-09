@@ -28,6 +28,12 @@ public class GameManager : MonoBehaviour
 	public Text FinalScoreText;
 	public GameObject GameOverScreen;
 
+	[Header("SFX")] 
+	[SerializeField] private AudioClip[] gameStart;
+	[SerializeField] private AudioClip[] gameOver;
+	private AudioSource audioSource;
+
+	
 	public int BuildingCount
 	{
 		get
@@ -39,9 +45,11 @@ public class GameManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		audioSource = GetComponent<AudioSource>();
 		GameOver = false;
 		TargettingNodes = transform.Find("TargettingNodes");
 		BuildingsParent = transform.Find("Buildings");
+		audioSource.PlayOneShot(gameStart[Random.Range(0,gameStart.Length)]);
 	}
 
 	// Update is called once per frame
@@ -85,6 +93,8 @@ public class GameManager : MonoBehaviour
 	{
 		if (BuildingCount <= 0)
 		{
+			if (GameOver) return;
+			audioSource.PlayOneShot(gameOver[Random.Range(0,gameOver.Length)]);
 			Time.timeScale = 0f;
 			GameOver = true;
 			GameOverScreen.SetActive(true);
