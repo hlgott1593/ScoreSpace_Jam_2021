@@ -3,73 +3,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetNode : MonoBehaviour
-{
-	private float timeLeft;
-	private float startingScale;
-	public Cannon MyCannon;
-	public float TimeToSelect;
-	public TargetNode NextNode;
-	[SerializeField] private InputReader inputReader;
-	[SerializeField] private bool cursorColliding;
+public class TargetNode : MonoBehaviour {
+    private float timeLeft;
+    private float startingScale;
+    public Cannon MyCannon;
+    public float TimeToSelect;
+    public TargetNode NextNode;
+    [SerializeField] private bool cursorColliding;
+    [SerializeField] private InputReader inputReader;
 
-	private void OnEnable() {
-		inputReader.FireEvent += HandleFire;
-	}
+    private void OnEnable() {
+        inputReader = FindObjectOfType<InputReader>();
+        if (inputReader == null) return;
+        inputReader.FireEvent += HandleFire;
+    }
 
-	private void OnDisable() {
-		inputReader.FireEvent -= HandleFire;
-	}
+    private void OnDisable() {
+        if (inputReader == null) return;
+        inputReader.FireEvent -= HandleFire;
+    }
 
-	private void HandleFire() {
-		if (!cursorColliding) return;
-		
-		if (NextNode == null)
-		{
-			MyCannon.PlayOnClick(false);
-			MyCannon.FinalizeTarget();
-		}
-		else
-		{
-			MyCannon.PlayOnClick(true);
-			NextNode.SetActive(true);
-			Destroy(gameObject);
-			MyCannon.SetTargettingLineProgress(MyCannon.TargettingLineProgress + MyCannon.TargettingLineProgressAmount);
-		}
-	}
+    private void HandleFire() {
+        if (!cursorColliding) return;
 
-	// Start is called before the first frame update
-	void Start()
-	{
-		startingScale = transform.localScale.x;
-		timeLeft = TimeToSelect;
-	}
+        if (NextNode == null) {
+            MyCannon.PlayOnClick(false);
+            MyCannon.FinalizeTarget();
+        }
+        else {
+            MyCannon.PlayOnClick(true);
+            NextNode.SetActive(true);
+            Destroy(gameObject);
+            MyCannon.SetTargettingLineProgress(MyCannon.TargettingLineProgress + MyCannon.TargettingLineProgressAmount);
+        }
+    }
 
-	// Update is called once per frame
-	void Update()
-	{
-		timeLeft -= Time.unscaledDeltaTime;
-		if (timeLeft <= 0f)
-		{
-			MyCannon.FailedTarget();
-		}
-		//UpdateSize();
-	}
+    // Start is called before the first frame update
+    void Start() {
+        startingScale = transform.localScale.x;
+        timeLeft = TimeToSelect;
+    }
 
-	/// <summary>
-	/// Keep the size of the node accurate with how much time is left.
-	/// </summary>
-	private void UpdateSize()
-	{
-		float ratio = timeLeft / TimeToSelect;
-		if (ratio < 0f)
-		{
-			ratio = 0f;
-		}
-		float newScale = Mathf.Lerp(0f, startingScale, ratio);
-		transform.localScale = new Vector3(newScale, newScale, newScale);
-	}
+    // Update is called once per frame
+    void Update() {
+        timeLeft -= Time.unscaledDeltaTime;
+        if (timeLeft <= 0f) {
+            MyCannon.FailedTarget();
+        }
 
+        //UpdateSize();
+    }
+
+
+    /// <summary>
+    /// Keep the size of the node accurate with how much time is left.
+    /// </summary>
+    private void UpdateSize() {
+        float ratio = timeLeft / TimeToSelect;
+        if (ratio < 0f) {
+            ratio = 0f;
+        }
+
+        float newScale = Mathf.Lerp(0f, startingScale, ratio);
+        transform.localScale = new Vector3(newScale, newScale, newScale);
+    }
 
 	private void OnTriggerEnter2D(Collider2D _other)
 	{
@@ -87,9 +84,8 @@ public class TargetNode : MonoBehaviour
 		cursorColliding = false;
 	}
 
-	private void SetActive(bool v)
-    {
+    private void SetActive(bool v) {
         gameObject.SetActive(true);
-		GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<SpriteRenderer>().enabled = true;
     }
 }

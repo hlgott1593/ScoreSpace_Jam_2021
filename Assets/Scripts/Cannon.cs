@@ -9,9 +9,9 @@ public class Cannon : MonoBehaviour
 {
 	private Camera mainCamera;
 	[SerializeField] private GameManager gameManager;
-	[SerializeField] private InputReader inputReader;
 	private bool shooting;
 	private Vector3 targetLocation;
+	[SerializeField] private InputReader inputReader;
 
 	public LineRenderer TargettingLine;
 	public float TargettingLineProgress;
@@ -202,7 +202,7 @@ public class Cannon : MonoBehaviour
 	{
 		gameManager.NormalizeTime();
 		SpawnBomb(bombPrefab, targetLocation);
-		shooting = false;
+		StartCoroutine(EnableFiringAfterDelay());
 
 		foreach (Transform child in gameManager.TargettingNodes)
 		{
@@ -210,6 +210,11 @@ public class Cannon : MonoBehaviour
 		}
 
 		TargettingLine.gameObject.SetActive(false);
+	}
+
+	private IEnumerator EnableFiringAfterDelay() {
+		yield return new  WaitForSeconds(0.2f);
+		shooting = false;
 	}
 
 	/// <summary>
