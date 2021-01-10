@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Forcefield : MonoBehaviour {
+    [SerializeField] private Collider2D collider2D;
     [SerializeField] private Renderer rend;
     private static readonly int EmmisionColor = Shader.PropertyToID("Color_1851709F");
 
@@ -18,10 +19,12 @@ public class Forcefield : MonoBehaviour {
 
     private void ShieldsDown() {
         rend.enabled = false;
+        collider2D.enabled = false;
     }
 
     private void ShieldsUp() {
         rend.enabled = true;
+        collider2D.enabled = true;
     }
     
     private void Update() {
