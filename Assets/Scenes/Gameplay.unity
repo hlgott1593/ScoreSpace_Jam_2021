@@ -271,6 +271,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 43493174, guid: 40cdc43ce153b924483954b675266256, type: 3}
+      propertyPath: initialEnergy
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 43493174, guid: 40cdc43ce153b924483954b675266256, type: 3}
+      propertyPath: <Energy>k__BackingField
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 8204748626555651016, guid: 40cdc43ce153b924483954b675266256, type: 3}
       propertyPath: m_Name
       value: ForceField
