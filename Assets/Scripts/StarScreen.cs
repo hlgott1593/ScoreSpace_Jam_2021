@@ -84,9 +84,8 @@ public class StarScreen : MonoBehaviour
 		}
 		Particles.SetParticles( Stars, Stars.Length );
 
-		print("asdfsdf");
-		Vector3 newPos = movingTransform.position * ParallaxFactor;					// Calculate the position of the object
-		newPos.z = 0;						// Force Z-axis to zero, since we're in 2D
+		Vector3 newPos = movingTransform.position * ParallaxFactor; // Calculate the position of the object
+		newPos.z = 0; // Force Z-axis to zero, since we're in 2D
 		transform.position = newPos;
  
 	}
