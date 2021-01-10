@@ -250,4 +250,10 @@ public class Cannon : MonoBehaviour
 
 		return forwardToTarget * rightToForward;
 	}
+
+	private void OnCollisionEnter2D(Collision2D other) {
+		if (!other.gameObject.CompareTag("Enemy")) return;
+		gameManager.HandleGameOver();
+		enabled = false;
+	}
 }
