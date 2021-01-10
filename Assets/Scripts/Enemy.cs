@@ -45,9 +45,7 @@ public class Enemy : MonoBehaviour {
         UpdateSpinEffect();
     }
 
-    public void GetSuckedDry(BlackHoleBomb bomb) {
-        blackHoleBomb = bomb;
-    }
+    public void EnterEventHorizon(BlackHoleBomb bomb) => blackHoleBomb = bomb;
 
     private void BlackholeMovement() {
         var dest = blackHoleBomb.transform.position - transform.position;
@@ -127,7 +125,7 @@ public class Enemy : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Bomb")) {
             if (other.TryGetComponent(out BlackHoleBomb bhBomb)) {
-                GetSuckedDry(bhBomb);
+                EnterEventHorizon(bhBomb);
             }
             else if (other.TryGetComponent(out Bomb bomb)) {
                 bomb.MyExplodeCallback += Kill;

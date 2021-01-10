@@ -10,6 +10,6 @@ public class BombUIText : MonoBehaviour {
     private string Infinity = "Inf";
     
     void Update() {
-        textMeshProUGUI.text = $"{mapping.name}: {(mapping.ammoLeft > 999 ?  Infinity : mapping.ammoLeft.ToString())}";
+        textMeshProUGUI.text = $"{mapping.title}: {(mapping.ammoLeft > 999 ?  Infinity : mapping.ammoLeft.ToString())}";
 }
 }
