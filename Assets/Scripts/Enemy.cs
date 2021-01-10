@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private float orbitRange;
 	[SerializeField] private float attackRange;
 	[SerializeField] private float moveSpeed;
+	[SerializeField] private float maxSpeed;
 	[SerializeField] private float spriteRotateSpeed;
 	private bool attacking;
 	private float behaviorTimer;
@@ -28,7 +29,11 @@ public class Enemy : MonoBehaviour
 
 	[Header("Drops")] [SerializeField] private List<Drop> drops;
 	
-	
+	[Header("Bump Settings")]
+	[SerializeField] private bool pushed;
+	[SerializeField] float bumpDuration;
+	[SerializeField] float bumpForce;
+
 	void Start()
 	{
 		healthText.text = "" + (int)Health;
@@ -38,14 +43,24 @@ public class Enemy : MonoBehaviour
 	
 	void Update()
 	{
-		// OrbitalMovement();
+		if (!pushed) OrbitalMovement();
 		UpdateSpinEffect();
 	}
 
-	void OnFixedUpdate()
+	void FixedUpdate()
 	{
 		// gameObject.GetComponent<Rigidbody>().AddForce(10, 0, 0);
-		gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(20, 0));
+		// float radians = 90 * (Mathf.PI / 180);
+        // Vector3 location = new Vector3(Mathf.Cos(radians), Mathf.Sin(radians), 0) * spawnRange;
+        // set values
+        // astroid.transform.position = location; //+ offset;
+        // add force
+		// var normal = new Vector2(-transform.position.y, transform.position.x);
+		// Debug.DrawLine(transform.position, normal, Color.red);
+		// if (GetComponent<Rigidbody2D>().velocity.magnitude < maxSpeed)
+		// {
+		// 	GetComponent<Rigidbody2D>().AddForce(normal.normalized * moveSpeed);
+		// }
 	}
 
 	/// <summary>
@@ -132,7 +147,6 @@ public class Enemy : MonoBehaviour
 	{
 		if (other.CompareTag("Bomb"))
 		{
-			print("Bomb");
 			Bomb bomb = other.GetComponent<Bomb>();
 			if (bomb.EarlyCheck)
 			{
@@ -143,7 +157,6 @@ public class Enemy : MonoBehaviour
 
 		if (other.CompareTag("Explosion"))
 		{
-			print("Explosion");
 			Explosion explosion = other.GetComponent<Explosion>();
 			Health -= explosion.Damage;
 			healthText.text = "" + (int)Health;
@@ -152,17 +165,38 @@ public class Enemy : MonoBehaviour
 				Kill();
 			}
 		}
+	}
 
-		if (other.CompareTag("Obstacle"))
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.collider.CompareTag("Obstacle"))
 		{
-			print("enemy");
-			Obstacle obstacle = other.GetComponent<Obstacle>();
+			Obstacle obstacle = collision.collider.GetComponent<Obstacle>();
 			Health -= obstacle.Damage;
 			healthText.text = "" + (int)Health;
 			if (Health <= 0)
 			{
 				Kill();
 			}
+			else
+			{
+				StartCoroutine(Bump(obstacle.transform.position));
+			}
 		}
 	}
+
+    private IEnumerator Bump(Vector3 source)
+    {
+		pushed = true;
+		var start = transform.position;
+		float cur = 0;
+		Vector2 direction = -(source - start).normalized;
+		while (cur < bumpDuration)
+		{
+			transform.position = Vector3.Lerp(start, direction * bumpForce, (cur / bumpDuration));
+			cur += Time.deltaTime;
+			yield return new WaitForFixedUpdate();
+		}
+		pushed = false;
+    }
 }
