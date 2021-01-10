@@ -114,7 +114,7 @@ public class Enemy : MonoBehaviour {
         // return;
         // var roll = Random.Range(0, 100);
         // if (roll < 75) return;
-        var drop = drops[Random.Range(0, drops.Count - 1)];
+        var drop = drops[Random.Range(0, drops.Count)];
         Instantiate(drop, transform.position, Quaternion.identity);
     }
 
