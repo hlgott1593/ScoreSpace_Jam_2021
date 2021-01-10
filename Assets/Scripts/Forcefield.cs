@@ -1,42 +1,61 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using DG.Tweening;
 using UnityEngine;
 
 public class Forcefield : MonoBehaviour {
-    [SerializeField] private Collider2D collider2D;
+    [SerializeField] private Collider2D col;
     [SerializeField] private Renderer rend;
     private static readonly int EmmisionColor = Shader.PropertyToID("Color_1851709F");
+    private static readonly int DissolveTime = Shader.PropertyToID("Vector1_895D7E5B");
+    private bool shieldsActive;
+    [SerializeField] private float initialEnergy = 1000;
+    [field: SerializeField] public float Energy { get; set; }
+    [SerializeField] private float shieldAnimationDuration = 2;
+    
 
-    [field: SerializeField] public float Health { get; set; } = 1000;
+    private void Awake() {
+        shieldsActive = true;
+        Energy = initialEnergy;
+    }
 
     private Color ColorFromHealth() {
-        if (Health > 500) return Color.cyan;
-        if (Health > 250) return Color.yellow;
-        if (Health > 0) return Color.red;
-        return Color.clear;
+        if (Energy / initialEnergy > 0.5) return Color.cyan;
+        if (Energy / initialEnergy > 0.25) return Color.yellow;
+        return Color.red;
     }
 
     private void ShieldsDown() {
-        rend.enabled = false;
-        collider2D.enabled = false;
+        shieldsActive = false;
+        rend.material.SetFloat(DissolveTime, 1);
+        var s = DOTween.Sequence();
+        s.Append(rend.material.DOFloat(-1, DissolveTime, shieldAnimationDuration));
+        s.AppendCallback(() => {
+            rend.enabled = false;
+            col.enabled = false;
+        });
+        s.Play();
     }
 
     private void ShieldsUp() {
-        rend.enabled = true;
-        collider2D.enabled = true;
+        shieldsActive = true;
+        rend.material.SetFloat(DissolveTime, -1);
+        var s = DOTween.Sequence();
+        s.AppendCallback(() => {
+            rend.enabled = true;
+            col.enabled = true;
+        });
+        s.Append(rend.material.DOFloat(1, DissolveTime, shieldAnimationDuration));
+        s.Play();
     }
-    
+
     private void Update() {
-        if (Health > 0) ShieldsUp();
-        else ShieldsDown();
-        
+        if (Energy > 0 && !shieldsActive) ShieldsUp();
+        else if (Energy <= 0 && shieldsActive) ShieldsDown();
         rend.material.SetColor(EmmisionColor, ColorFromHealth());
     }
 
     private void OnCollisionStay2D(Collision2D other) {
         if (other.gameObject.TryGetComponent(out Enemy enemy)) {
-            Health -= enemy.Damage * Time.deltaTime;
+            Energy -= enemy.Damage * Time.deltaTime;
         }
     }
 }

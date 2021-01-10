@@ -82,9 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37764018e6183184ca5c3ae6d3ba3d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider2D: {fileID: 43493172}
+  col: {fileID: 43493172}
   rend: {fileID: 8204748626555651022}
-  <Health>k__BackingField: 1000
+  <Energy>k__BackingField: 1000
 --- !u!1 &8204748626555651016
 GameObject:
   m_ObjectHideFlags: 0

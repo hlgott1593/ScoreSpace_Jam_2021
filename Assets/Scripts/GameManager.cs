@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        Time.timeScale = 1f;
         audioSource = GetComponent<AudioSource>();
         GameOver = false;
         TargettingNodes = transform.Find("TargettingNodes");

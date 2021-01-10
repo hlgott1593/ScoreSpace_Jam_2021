@@ -7,7 +7,7 @@ namespace Drops {
         protected override void Pickup() {
             var ff = FindObjectOfType<Forcefield>();
             if (ff == null) return;
-            ff.Health += amount;
+            ff.Energy += amount;
         }
     }
 }
