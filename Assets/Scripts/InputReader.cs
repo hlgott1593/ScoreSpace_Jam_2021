@@ -20,6 +20,7 @@ public class InputReader : MonoBehaviour, PlayerControls.IPlayerActions {
     }
 
     public void EnableGameplayInput() {
+        playerControls.UI.Disable();
         playerControls.Player.Enable();
     }
     
@@ -33,5 +34,10 @@ public class InputReader : MonoBehaviour, PlayerControls.IPlayerActions {
 
     private void Update() {
         if (ShouldFire) FireEvent.Invoke();
+    }
+
+    public void EnableUIInput() {
+        playerControls.Player.Disable();
+        playerControls.UI.Enable();
     }
 }

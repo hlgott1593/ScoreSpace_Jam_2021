@@ -21,8 +21,8 @@ public class Cannon : MonoBehaviour
 	private float coolDownTime;
 	private float coolDownTimer;
 
-	[Header("Prefabs")]
-	[SerializeField] private GameObject bombPrefab;
+	[Header("Prefabs")] [SerializeField] public BombAmmoMapping defaultMapping;
+	[HideInInspector] public BombAmmoMapping bomb;
 	[SerializeField] private GameObject targetNodePrefab;
 
 
@@ -32,6 +32,7 @@ public class Cannon : MonoBehaviour
 	private AudioSource audioSource;
 
 	private void OnEnable() {
+		bomb = defaultMapping;
 		inputReader.FireEvent += PlaceBombs;
 	}
 
@@ -76,6 +77,7 @@ public class Cannon : MonoBehaviour
 		if (coolDownTimer <= 0f && !shooting) {
 			coolDownTimer = coolDownTime;
 			shooting = true;
+			bomb.ammoLeft--;
 			targetLocation = GetMousePos();
 			gameManager.SlowDownTime();
 			BeginTargetting();
@@ -184,7 +186,7 @@ public class Cannon : MonoBehaviour
 	public void FailedTarget()
 	{
 		gameManager.NormalizeTime();
-		SpawnBomb(bombPrefab, RandomPosition(5f, 5f));
+		SpawnBomb(bomb.prefab, RandomPosition(5f, 5f));
 		shooting = false;
 
 		foreach (Transform child in gameManager.TargettingNodes)
@@ -201,7 +203,7 @@ public class Cannon : MonoBehaviour
 	public void FinalizeTarget()
 	{
 		gameManager.NormalizeTime();
-		SpawnBomb(bombPrefab, targetLocation);
+		SpawnBomb(bomb.prefab, targetLocation);
 		StartCoroutine(EnableFiringAfterDelay());
 
 		foreach (Transform child in gameManager.TargettingNodes)
