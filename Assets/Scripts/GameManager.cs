@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class GameManager : MonoBehaviour {
     private int score;
@@ -24,14 +25,18 @@ public class GameManager : MonoBehaviour {
     public Transform TargettingNodes;
     public Transform BuildingsParent;
 
-    [Header("UI Stuff")] public Text ScoreText;
-    public Text FinalScoreText;
+    [Header("UI Stuff")]
+    public Text highscoreText;
+    public Text scoreText;
+    public Text finalScoreText;
     public GameObject GameOverScreen;
 
     [Header("SFX")] [SerializeField] private AudioClip[] gameStart;
     [SerializeField] private AudioClip[] gameOver;
     private AudioSource audioSource;
 
+    public ScoreData scoreData;
+    public static string SCORE_FILENAME = "scoreData.json";
 
     public int BuildingCount {
         get { return BuildingsParent.childCount; }
@@ -45,6 +50,8 @@ public class GameManager : MonoBehaviour {
         TargettingNodes = transform.Find("TargettingNodes");
         BuildingsParent = transform.Find("Buildings");
         audioSource.PlayOneShot(gameStart[Random.Range(0, gameStart.Length)]);
+        // Load saved score data
+        LoadScores();
     }
 
     // Update is called once per frame
@@ -85,7 +92,20 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0f;
         GameOver = true;
         GameOverScreen.SetActive(true);
-        FinalScoreText.text = "Score: " + score;
+        // set score texts
+        Score finalScore = new Score() {
+            player = "test",
+            value = score
+        };
+        finalScoreText.text = finalScore.value.ToString();
+        if (finalScore.value > scoreData.highscore.value)
+        {
+            scoreData.highscore = finalScore;
+        }
+        highscoreText.text = scoreData.highscore.value.ToString();
+        // save scores
+        scoreData.scores.Add(finalScore);
+        SaveScores();
     }
 
     /// <summary>
@@ -110,7 +130,7 @@ public class GameManager : MonoBehaviour {
 
     public void IncreaseScore(int _amount) {
         score += _amount;
-        ScoreText.text = "" + score;
+        scoreText.text = "" + score;
     }
 
     /// <summary>
@@ -118,5 +138,31 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void LoadScores()
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, SCORE_FILENAME);
+
+        if(File.Exists(filePath))
+        {
+            // Read the json from the file
+            string json = File.ReadAllText(filePath);
+            scoreData = JsonUtility.FromJson<ScoreData>(json);
+        }
+        else
+        {
+            Debug.LogError(SCORE_FILENAME + " not found: " + filePath);
+            scoreData = new ScoreData();
+            SaveScores();
+        }
+    }
+
+    public void SaveScores()
+    {
+        string json = JsonUtility.ToJson (scoreData);
+        // write to file
+        string filePath = Path.Combine(Application.persistentDataPath, SCORE_FILENAME);
+        File.WriteAllText(filePath, json);
     }
 }
