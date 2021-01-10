@@ -51,6 +51,11 @@ public class Obstacle : MonoBehaviour
 				Kill();
 			}
 		}
+
+		if (collision.gameObject.CompareTag("Building"))
+		{
+			Kill();
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
@@ -63,11 +68,6 @@ public class Obstacle : MonoBehaviour
 				bomb.MyExplodeCallback += Kill;
 				bomb.Explode();
 			}
-		}
-
-		if (other.CompareTag("Building"))
-		{
-			Kill();
 		}
 
 		if (other.CompareTag("Explosion"))

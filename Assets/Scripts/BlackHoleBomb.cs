@@ -22,9 +22,8 @@ public class BlackHoleBomb : Bomb {
     }
 
     public void ApplyBlackhole() {
-        Debug.Log("applying");
         for (int i = 0; i < interactors.Count; i++) {
-            interactors[i].GetSuckedDry(this);
+            interactors[i].EnterEventHorizon(this);
         }
     }
 }
