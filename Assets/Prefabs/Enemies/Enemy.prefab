@@ -355,4 +355,6 @@ MonoBehaviour:
   spriteRotateSpeed: 90
   DeathExplosion: {fileID: 4478007168789551371, guid: 82485aaf734007e43ac1018a18acf60c, type: 3}
   drops:
-  - {fileID: 8058439137379317415, guid: c827a18002bfb594fa512067a5a0c401, type: 3}
+  - {fileID: 4992117213504228857, guid: 16e83531f1dde364aa459599ca0ee30e, type: 3}
+  - {fileID: -4689053927426884984, guid: 414f43f0ad0e7ea459850ebd79394cd8, type: 3}
+  blackHoleBomb: {fileID: 0}

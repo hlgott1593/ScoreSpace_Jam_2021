@@ -316,11 +316,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  inputReader: {fileID: 11400000, guid: 4e17133e6758c5e4dbc42a603342e3d5, type: 2}
+  inputReader: {fileID: 0}
   TargettingLine: {fileID: 0}
   TargettingLineProgress: 0
   TargettingLineProgressAmount: 0
-  bombPrefab: {fileID: 3056395641703938093, guid: caec0bd74060b7d4fa621de7d671b01b, type: 3}
+  defaultMapping: {fileID: 11400000, guid: d0567a6128ee6fb44adb883dd1d0b03d, type: 2}
+  bomb: {fileID: 0}
   targetNodePrefab: {fileID: 9152031984048892345, guid: 6212b0d199f41454fb0bc916fa17dc9c, type: 3}
   onClickHasNext:
   - {fileID: 8300000, guid: a3ae91b87db80544f867832ebc3c949a, type: 3}
