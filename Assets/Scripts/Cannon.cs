@@ -50,7 +50,7 @@ public class Cannon : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         mainCamera = Camera.main;
-        gameManager = transform.parent.GetComponent<GameManager>();
+        gameManager = transform.root.GetComponent<GameManager>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -63,7 +63,10 @@ public class Cannon : MonoBehaviour {
     private void UpdateCannonRotation() {
         // Look at the mouse
         Vector3 toMouse = (GetMousePos() - transform.position).normalized;
-        transform.rotation = XLookRotation(toMouse, Vector3.up);
+        
+        float rotZ = Mathf.Atan2(toMouse.y, toMouse.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rotZ - 90);
+        // transform.rotation = XLookRotation(toMouse, Vector3.up);
     }
 
     private void PlaceBombs() {
@@ -226,17 +229,7 @@ public class Cannon : MonoBehaviour {
         float y = Random.Range(-_yDistance, _yDistance);
         return new Vector3(x, y, 0f);
     }
-
-    /// <summary>
-    /// Thanks! https://gamedev.stackexchange.com/questions/139515/lookrotation-make-x-axis-face-the-target-instead-of-z
-    /// </summary>
-    Quaternion XLookRotation(Vector3 right, Vector3 up) {
-        Quaternion rightToForward = Quaternion.Euler(0f, -90f, 0f);
-        Quaternion forwardToTarget = Quaternion.LookRotation(right, up);
-
-        return forwardToTarget * rightToForward;
-    }
-
+    
     private void OnCollisionEnter2D(Collision2D other) {
         if (!other.gameObject.CompareTag("Enemy")) return;
         gameManager.HandleGameOver();
