@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToPickup: 2
-  amount: 2
+  amount: 1
   fontColor: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 0}
   bhBomb: {fileID: 11400000, guid: 6d42d47ec2ca9d74ebb7fc7fded32c7c, type: 2}
 --- !u!1001 &136320327561737494

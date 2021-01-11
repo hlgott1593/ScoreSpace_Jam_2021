@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -10,13 +12,15 @@ public class EnemyManager : MonoBehaviour
 	[SerializeField] private bool AllowDebugControls;
 
 	[Header("Spawn Settings")]
-	[SerializeField] private float spawnRate;
+	private float spawnRate;
 	private float spawnTimer;
-
+	private float incrementValue;
+	
 	[Header("Prefabs")]
 	[SerializeField] private GameObject enemyPrefab;
 
 	private List<Enemy> enemies;
+	private Coroutine rampCr;
 
 	/// <summary>
 	/// Let's us know how many enemies there are.
@@ -31,11 +35,18 @@ public class EnemyManager : MonoBehaviour
 	}
 
 	// Start is called before the first frame update
-	void Start()
-	{
+	void Start() {
+		spawnRate = 4f;
+		incrementValue = 30f;
+		StopAllCoroutines();
 		gameManager = transform.parent.GetComponent<GameManager>();
 		enemies = new List<Enemy>();
 		LoadSpawners();
+		rampCr = StartCoroutine(RampDifficulty());
+	}
+
+	private void OnDisable() {
+		StopAllCoroutines();
 	}
 
 	/// <summary>
@@ -52,10 +63,20 @@ public class EnemyManager : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update()
-	{
+	void Update() {
 		UpdateSpawnEnemies();
 		if (AllowDebugControls && Keyboard.current.spaceKey.wasPressedThisFrame) DebugKillOldest();
+	}
+
+	private IEnumerator RampDifficulty() {
+		var nextIncrement = incrementValue;
+		while (!gameManager.GameOver) {
+			if (Time.time > nextIncrement) {
+				nextIncrement += incrementValue;
+				spawnRate = Mathf.Clamp(spawnRate - .5f, .2f, 99);
+			}
+			yield return new WaitForSeconds(0.5f);
+		}
 	}
 
 	private void DebugKillOldest() {

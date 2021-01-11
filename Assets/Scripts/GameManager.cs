@@ -7,7 +7,7 @@ using System.IO;
 
 public class GameManager : MonoBehaviour {
     private int score;
-    private bool GameOver;
+    public bool GameOver;
     private float m_ElapsedGameTime;
     private float m_ElapsedRealTime;
 

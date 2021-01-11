@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 3056395641703938093, guid: 0dbcc778d39e3704ba70f2c6fe92ebc2, type: 3}
   title: Blackhole
-  ammoLeft: 994
+  ammoLeft: 1

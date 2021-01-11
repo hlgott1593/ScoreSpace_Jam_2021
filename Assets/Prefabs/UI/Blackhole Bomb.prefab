@@ -11,6 +11,22 @@ PrefabInstance:
       propertyPath: bomb
       value: 
       objectReference: {fileID: 11400000, guid: 6d42d47ec2ca9d74ebb7fc7fded32c7c, type: 2}
+    - target: {fileID: 1812604351074242211, guid: bf572fa9537e9d340bb665eee2b676c9, type: 3}
+      propertyPath: availableColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1812604351074242211, guid: bf572fa9537e9d340bb665eee2b676c9, type: 3}
+      propertyPath: availableColor.b
+      value: 0.9254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1812604351074242211, guid: bf572fa9537e9d340bb665eee2b676c9, type: 3}
+      propertyPath: availableColor.g
+      value: 0.38039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 1812604351074242211, guid: bf572fa9537e9d340bb665eee2b676c9, type: 3}
+      propertyPath: availableColor.r
+      value: 0.8745098
+      objectReference: {fileID: 0}
     - target: {fileID: 5572544976234960334, guid: bf572fa9537e9d340bb665eee2b676c9, type: 3}
       propertyPath: m_Sprite
       value: 

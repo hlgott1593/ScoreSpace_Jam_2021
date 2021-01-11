@@ -134,8 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMeshProUGUI: {fileID: 5572544976354895282}
-  BombName: Bomb
-  BombNumber: 0
+  mapping: {fileID: 0}
 --- !u!114 &5572544976354895282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,3 +357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b93204d9c94fcd82c198c479661710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bomb: {fileID: 0}
+  button: {fileID: 5981496451755670650}
+  image: {fileID: 5572544976234960334}
+  availableColor: {r: 0, g: 0, b: 0, a: 0}
+  unavailableColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 0.6666667}

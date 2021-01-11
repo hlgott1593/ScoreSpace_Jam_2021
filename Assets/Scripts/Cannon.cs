@@ -50,6 +50,7 @@ public class Cannon : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        defaultMapping.ammoLeft = Int32.MaxValue;
         mainCamera = Camera.main;
         gameManager = transform.root.GetComponent<GameManager>();
         audioSource = GetComponent<AudioSource>();
@@ -206,6 +207,8 @@ public class Cannon : MonoBehaviour {
         }
 
         TargettingLine.gameObject.SetActive(false);
+
+        if (bomb.ammoLeft <= 0) bomb = defaultMapping;
     }
 
     private IEnumerator EnableFiringAfterDelay() {

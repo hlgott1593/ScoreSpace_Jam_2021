@@ -349,7 +349,7 @@ MonoBehaviour:
   healthText: {fileID: 1815631031}
   Health: 100
   Damage: 20
-  dropChance: 25
+  dropChance: 15
   orbitRange: 4
   attackRange: 0
   moveSpeed: 2
