@@ -33,10 +33,12 @@ public class Enemy : MonoBehaviour {
 
     [SerializeField] float bumpDuration;
     [SerializeField] float bumpForce;
+    [SerializeField] private Bounds shieldBounds;
 
     void Start() {
         healthText.text = "" + (int) Health;
         mySprite = transform.Find("Sprite");
+        shieldBounds = GameObject.Find("ForceField").GetComponent<MeshRenderer>().bounds;
     }
 
     void Update() {
@@ -162,18 +164,28 @@ public class Enemy : MonoBehaviour {
                 Kill();
             }
             else {
+
                 StartCoroutine(Bump(obstacle.transform.position));
             }
         }
     }
 
-    private IEnumerator Bump(Vector3 source) {
+    private IEnumerator Bump(Vector2 source) {
         pushed = true;
-        var start = transform.position;
+        Vector2 start = transform.position;
         float cur = 0;
         Vector2 direction = -(source - start).normalized;
+        Vector2 end = start + (direction * bumpForce);
         while (cur < bumpDuration) {
-            transform.position = Vector3.Lerp(start, direction * bumpForce, (cur / bumpDuration));
+            // Handle not bumping into center
+            Vector3 toCenter = Vector3.zero - transform.position;
+            float distance = toCenter.magnitude;
+            if (distance < (shieldBounds.extents.magnitude + 1f) / 2)
+            {
+                break;
+            }
+            // continue bump
+            transform.position = Vector3.Lerp(start, end, (cur / bumpDuration));
             cur += Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
