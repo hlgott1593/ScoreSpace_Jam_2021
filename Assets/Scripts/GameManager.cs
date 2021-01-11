@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour {
     public Transform TargettingNodes;
     public Transform BuildingsParent;
 
+    [SerializeField] private BombAmmoMapping bhmapping;
+
     [Header("UI Stuff")]
     public Text highscoreText;
     public Text scoreText;
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        bhmapping.ammoLeft = 0;
         Time.timeScale = 1f;
         audioSource = GetComponent<AudioSource>();
         GameOver = false;

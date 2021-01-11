@@ -19,6 +19,7 @@ public class Cannon : MonoBehaviour {
 
     [Header("Settings")] private float coolDownTime;
     private float coolDownTimer;
+    [SerializeField] private bool sinStyleLine;
 
     [Header("Prefabs")] [SerializeField] public BombAmmoMapping defaultMapping;
     [HideInInspector] public BombAmmoMapping bomb;
@@ -63,7 +64,7 @@ public class Cannon : MonoBehaviour {
     private void UpdateCannonRotation() {
         // Look at the mouse
         Vector3 toMouse = (GetMousePos() - transform.position).normalized;
-        
+
         float rotZ = Mathf.Atan2(toMouse.y, toMouse.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotZ - 90);
         // transform.rotation = XLookRotation(toMouse, Vector3.up);
@@ -131,8 +132,9 @@ public class Cannon : MonoBehaviour {
             Vector3 position =
                 new Vector3(toTarget.x * distance * distanceRatio, toTarget.y * distance * distanceRatio);
             float angle = distanceRatio * 360f * Mathf.Deg2Rad;
-            position += new Vector3(toTargetPerp.x * Mathf.Sin(angle) * waveDistance,
-                toTargetPerp.y * Mathf.Sin(angle) * waveDistance, 0f);
+            if (bomb.title == "Blackhole")
+                position += new Vector3(toTargetPerp.x * Mathf.Sin(angle) * waveDistance,
+                    toTargetPerp.y * Mathf.Sin(angle) * waveDistance, 0f);
             node.transform.position = position;
             linePositions.Add(position);
         }
@@ -177,7 +179,7 @@ public class Cannon : MonoBehaviour {
     /// </summary>
     public void FailedTarget() {
         var target = FindObjectsOfType<TargetNode>().First(x => x.gameObject.activeInHierarchy);
-        var spawnPos = target == null ? RandomPosition(5f,5f): target.transform.position;
+        var spawnPos = target == null ? RandomPosition(5f, 5f) : target.transform.position;
 
         gameManager.NormalizeTime();
         SpawnBomb(bomb.prefab, spawnPos);
@@ -229,7 +231,7 @@ public class Cannon : MonoBehaviour {
         float y = Random.Range(-_yDistance, _yDistance);
         return new Vector3(x, y, 0f);
     }
-    
+
     private void OnCollisionEnter2D(Collision2D other) {
         if (!other.gameObject.CompareTag("Enemy")) return;
         gameManager.HandleGameOver();
