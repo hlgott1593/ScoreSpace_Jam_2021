@@ -18,6 +18,8 @@ public class Obstacle : MonoBehaviour {
 
     private float behaviorTimer;
 
+    [SerializeField] public SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     void Start() {
         mySprite = transform.Find("Sprite");

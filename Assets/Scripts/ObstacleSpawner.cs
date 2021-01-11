@@ -12,6 +12,8 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] public float intensity;
     [SerializeField] public int destroyAfterSec;
 
+    [SerializeField] public Sprite[] astroids;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,18 +41,18 @@ public class ObstacleSpawner : MonoBehaviour
     private void SpawnAstroid()
     {
         Obstacle astroid = Instantiate(obstacle, transform).GetComponent<Obstacle>();
-       
+        // Set Sprite
+        astroid.spriteRenderer.sprite = astroids[Random.Range(0, astroids.Length)];
         float radians = Random.Range(0, 360) * (Mathf.PI / 180);
         Vector3 location = new Vector3(Mathf.Cos(radians), Mathf.Sin(radians), 0) * spawnRange;
         // set values
-        astroid.transform.position = location; //+ offset;
+        astroid.transform.position = location;
         // add force
         Vector3 end = new Vector2(
             Random.Range(-astroidOffsetRange, astroidOffsetRange),
             Random.Range(-astroidOffsetRange, astroidOffsetRange)
         );
         astroid.GetComponent<Rigidbody2D>().AddForce((end - astroid.transform.position) * astroidSpeed);
-        // TEMP
         StartCoroutine(DestoryAstroid(astroid));
         
     }
