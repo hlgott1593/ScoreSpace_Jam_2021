@@ -172,6 +172,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Body
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 01a30c7192baa284fa0a0e19bb6d24ae, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 01a30c7192baa284fa0a0e19bb6d24ae, type: 3}
+      propertyPath: m_TagString
+      value: Building
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01a30c7192baa284fa0a0e19bb6d24ae, type: 3}
 --- !u!4 &1229159524814778517 stripped
@@ -295,6 +303,10 @@ PrefabInstance:
     - target: {fileID: 598911682823113614, guid: 3722afd02d58cc741aecd7c60ca847f3, type: 3}
       propertyPath: m_Name
       value: Cannon
+      objectReference: {fileID: 0}
+    - target: {fileID: 598911682823113614, guid: 3722afd02d58cc741aecd7c60ca847f3, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2301823744951072168, guid: 3722afd02d58cc741aecd7c60ca847f3, type: 3}
       propertyPath: gameManager
