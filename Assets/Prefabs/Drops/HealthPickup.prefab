@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToPickup: 2
-  amount: 100
+  amount: 10
   fontColor: {r: 0.34607512, g: 0.7264151, b: 0.44277167, a: 0}
 --- !u!1001 &6127150681690303293
 PrefabInstance:
@@ -65,6 +65,18 @@ PrefabInstance:
     - target: {fileID: 3653427073760849721, guid: 6a98fcfdc1e29674fa9cf6cb46162507, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639116678120569835, guid: 6a98fcfdc1e29674fa9cf6cb46162507, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5457458
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639116678120569835, guid: 6a98fcfdc1e29674fa9cf6cb46162507, type: 3}
+      propertyPath: m_Color.g
+      value: 0.990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639116678120569835, guid: 6a98fcfdc1e29674fa9cf6cb46162507, type: 3}
+      propertyPath: m_Color.r
+      value: 0.60821366
       objectReference: {fileID: 0}
     - target: {fileID: 8397155729558302481, guid: 6a98fcfdc1e29674fa9cf6cb46162507, type: 3}
       propertyPath: m_Name

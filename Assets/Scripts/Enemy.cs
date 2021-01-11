@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour {
 
     public float Health;
     public float Damage;
+    [SerializeField] private int dropChance;
 
     [Header("Movement Settings")] [SerializeField]
     private float orbitRange;
@@ -114,9 +115,8 @@ public class Enemy : MonoBehaviour {
     }
 
     private void HandleDrop() {
-        // return;
-        // var roll = Random.Range(0, 100);
-        // if (roll < 75) return;
+        var roll = Random.Range(0, 100);
+        if (roll <= dropChance) return;
         var drop = drops[Random.Range(0, drops.Count)];
         Instantiate(drop, transform.position, Quaternion.identity);
     }
