@@ -14,7 +14,8 @@ public class EnemyManager : MonoBehaviour
 	[Header("Spawn Settings")]
 	private float spawnRate;
 	private float spawnTimer;
-	private float incrementValue;
+	[SerializeField] private float difficultyRampInterval;
+	[SerializeField] float initialEnemySpawnRate;
 	
 	[Header("Prefabs")]
 	[SerializeField] private GameObject enemyPrefab;
@@ -36,8 +37,7 @@ public class EnemyManager : MonoBehaviour
 
 	// Start is called before the first frame update
 	void Start() {
-		spawnRate = 4f;
-		incrementValue = 30f;
+		spawnRate = initialEnemySpawnRate;
 		StopAllCoroutines();
 		gameManager = transform.parent.GetComponent<GameManager>();
 		enemies = new List<Enemy>();
@@ -69,10 +69,10 @@ public class EnemyManager : MonoBehaviour
 	}
 
 	private IEnumerator RampDifficulty() {
-		var nextIncrement = incrementValue;
+		var nextIncrement = difficultyRampInterval;
 		while (!gameManager.GameOver) {
 			if (Time.time > nextIncrement) {
-				nextIncrement += incrementValue;
+				nextIncrement += difficultyRampInterval;
 				spawnRate = Mathf.Clamp(spawnRate - .5f, .2f, 99);
 			}
 			yield return new WaitForSeconds(0.5f);

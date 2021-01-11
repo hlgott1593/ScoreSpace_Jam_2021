@@ -133,8 +133,8 @@ MonoBehaviour:
   Damage: 25
   moveSpeed: 10
   spriteRotateSpeed: 10
-  DeathExplosion: {fileID: 4478007168789551371, guid: e13c42e38ec2c904fa53542c3ab418a2, type: 3}
   spriteRenderer: {fileID: 8714070038856051771}
+  DeathExplosion: {fileID: 4478007168789551371, guid: d204ca446b4c51f4f8ad619d76f8d829, type: 3}
 --- !u!58 &2769258718753049296
 CircleCollider2D:
   m_ObjectHideFlags: 0
