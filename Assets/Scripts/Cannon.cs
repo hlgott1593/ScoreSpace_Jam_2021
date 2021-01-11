@@ -23,6 +23,7 @@ public class Cannon : MonoBehaviour {
     [Header("Prefabs")] [SerializeField] public BombAmmoMapping defaultMapping;
     [HideInInspector] public BombAmmoMapping bomb;
     [SerializeField] private GameObject targetNodePrefab;
+    [SerializeField] private GameObject targetConfirmedVFX;
 
 
     [Header("SFX")] [SerializeField] private AudioClip[] onClickHasNext;
@@ -71,6 +72,7 @@ public class Cannon : MonoBehaviour {
             shooting = true;
             bomb.ammoLeft--;
             targetLocation = GetMousePos();
+            Destroy(Instantiate(targetConfirmedVFX, targetLocation, Quaternion.identity), 2.5f);
             gameManager.SlowDownTime();
             BeginTargetting();
         }

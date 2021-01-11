@@ -323,6 +323,7 @@ MonoBehaviour:
   defaultMapping: {fileID: 11400000, guid: d0567a6128ee6fb44adb883dd1d0b03d, type: 2}
   bomb: {fileID: 0}
   targetNodePrefab: {fileID: 9152031984048892345, guid: 6212b0d199f41454fb0bc916fa17dc9c, type: 3}
+  targetConfirmedVFX: {fileID: 4406525568098701659, guid: b247b5b7e22e1324cbe587168c559e48, type: 3}
   onClickHasNext:
   - {fileID: 8300000, guid: a3ae91b87db80544f867832ebc3c949a, type: 3}
   - {fileID: 8300000, guid: 6d4fb989c1ded714cba3f45fabede062, type: 3}
