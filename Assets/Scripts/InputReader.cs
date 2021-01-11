@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour, PlayerControls.IPlayerActions {
     public event UnityAction FireEvent = delegate {  };
+    public event UnityAction<InputAction.CallbackContext> PointerEvent = delegate {  };
     private bool ShouldFire { get; set; } = false;
 
     private PlayerControls playerControls;
@@ -30,7 +31,10 @@ public class InputReader : MonoBehaviour, PlayerControls.IPlayerActions {
         else ShouldFire = false;
     }
 
-    public void OnLook(InputAction.CallbackContext context) { }
+    public void OnPoint(InputAction.CallbackContext context) {
+        if(context.performed) PointerEvent.Invoke(context);
+    }
+
 
     private void Update() {
         if (ShouldFire) FireEvent.Invoke();
