@@ -148,28 +148,34 @@ public class GameManager : MonoBehaviour {
 
     public void LoadScores()
     {
-        string filePath = Path.Combine(Application.persistentDataPath, SCORE_FILENAME);
+        // NOTE: Persistent Storage not working on webgl
+        // string filePath = Path.Combine(Application.persistentDataPath, SCORE_FILENAME);
+        // if(File.Exists(filePath))
+        // {
+        //     // Read the json from the file
+        //     string json = File.ReadAllText(filePath);
+        //     scoreData = JsonUtility.FromJson<ScoreData>(json);
+        // }
+        // else
+        // {
+        //     Debug.LogError(SCORE_FILENAME + " not found: " + filePath);
+        //     scoreData = new ScoreData();
+        //     SaveScores();
+        // }
 
-        if(File.Exists(filePath))
-        {
-            // Read the json from the file
-            string json = File.ReadAllText(filePath);
-            scoreData = JsonUtility.FromJson<ScoreData>(json);
-        }
-        else
-        {
-            Debug.LogError(SCORE_FILENAME + " not found: " + filePath);
-            scoreData = new ScoreData();
-            SaveScores();
-        }
+        scoreData = new ScoreData();
+        scoreData.scores = new List<Score>();
+        scoreData.highscore = new Score() { value = PlayerPrefs.GetInt("highscore", 0) };
     }
 
     public void SaveScores()
     {
-        string json = JsonUtility.ToJson (scoreData);
-        // write to file
-        string filePath = Path.Combine(Application.persistentDataPath, SCORE_FILENAME);
-        File.WriteAllText(filePath, json);
+        // NOTE: Persistent Storage not working on webgl
+        // string json = JsonUtility.ToJson(scoreData);
+        // // write to file
+        // string filePath = Path.Combine(Application.persistentDataPath, SCORE_FILENAME);
+        // File.WriteAllText(filePath, json);
+        PlayerPrefs.SetInt("highscore", scoreData.highscore.value);
     }
 
     public void DisplayText(string text, Vector3 location, Color color, int textSize = 180)
