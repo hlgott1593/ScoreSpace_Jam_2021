@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Normal
   m_EditorClassIdentifier: 
   prefab: {fileID: 3056395641703938093, guid: caec0bd74060b7d4fa621de7d671b01b, type: 3}
-  name: Bomb
-  ammoLeft: 2147483647
+  title: Normal
+  ammoLeft: 2147483643

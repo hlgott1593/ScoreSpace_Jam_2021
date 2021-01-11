@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour {
     public Text finalScoreText;
     public GameObject GameOverScreen;
 
+    // Popup Text
+    [SerializeField] public GameObject popupTextPrefab;
+
     [Header("SFX")] [SerializeField] private AudioClip[] gameStart;
     [SerializeField] private AudioClip[] gameOver;
     private AudioSource audioSource;
@@ -164,5 +167,15 @@ public class GameManager : MonoBehaviour {
         // write to file
         string filePath = Path.Combine(Application.persistentDataPath, SCORE_FILENAME);
         File.WriteAllText(filePath, json);
+    }
+
+    public void DisplayText(string text, Vector3 location, Color color, int textSize = 180)
+    {
+        GameObject go = Instantiate(popupTextPrefab) as GameObject;
+        var tos = go.GetComponent<TextOnSpot>();
+        tos.TextPrefab.text = text;
+        tos.SetFontSize(textSize);
+        tos.SetColor(color);
+        go.transform.position = location;
     }
 }

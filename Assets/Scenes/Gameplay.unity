@@ -1197,6 +1197,7 @@ MonoBehaviour:
   scoreText: {fileID: 1490770277}
   finalScoreText: {fileID: 224222908581431588}
   GameOverScreen: {fileID: 224222908581431590}
+  popupTextPrefab: {fileID: 6010603142835986959, guid: 7088f27caf8588545b398dd0cf559303, type: 3}
   gameStart:
   - {fileID: 8300000, guid: 82721df625a94ce44b530e1f16cc3dcb, type: 3}
   gameOver:
@@ -1598,12 +1599,32 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7408956866411156712, guid: 1ab9e143a86371849a13821cf0ac07cd, type: 3}
+      propertyPath: m_text
+      value: "\u221E"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408956866411156712, guid: 1ab9e143a86371849a13821cf0ac07cd, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408956866411156712, guid: 1ab9e143a86371849a13821cf0ac07cd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 7408956866411156713, guid: 1ab9e143a86371849a13821cf0ac07cd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7408956866411156713, guid: 1ab9e143a86371849a13821cf0ac07cd, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408956866411156713, guid: 1ab9e143a86371849a13821cf0ac07cd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408956866411156713, guid: 1ab9e143a86371849a13821cf0ac07cd, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7408956866411156713, guid: 1ab9e143a86371849a13821cf0ac07cd, type: 3}

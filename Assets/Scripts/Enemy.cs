@@ -104,6 +104,7 @@ public class Enemy : MonoBehaviour {
     /// Destroys the enemy and increases score.
     /// </summary>
     public void Kill() {
+        GameManager.DisplayText($"+{scoreGranted}", transform.position, GameManager.scoreText.color);
         GameManager.IncreaseScore(scoreGranted);
         Instantiate(DeathExplosion, transform.position, Quaternion.identity);
         HandleDrop();

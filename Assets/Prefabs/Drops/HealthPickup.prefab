@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &8112935666440178978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2414126975821284396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aebb66fd08c448ea496b4d5e9490014, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToPickup: 2
-  amount: 100
 --- !u!114 &-4689053927426884984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToPickup: 2
   amount: 100
+  fontColor: {r: 0.34607512, g: 0.7264151, b: 0.44277167, a: 0}
 --- !u!1001 &6127150681690303293
 PrefabInstance:
   m_ObjectHideFlags: 0
