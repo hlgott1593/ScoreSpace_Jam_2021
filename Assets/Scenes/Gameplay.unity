@@ -1070,7 +1070,7 @@ MonoBehaviour:
   GameOverScreen: {fileID: 224222908581431590}
   popupTextPrefab: {fileID: 6010603142835986959, guid: 7088f27caf8588545b398dd0cf559303, type: 3}
   gameStart:
-  - {fileID: 8300000, guid: 82721df625a94ce44b530e1f16cc3dcb, type: 3}
+  - {fileID: 8300000, guid: a4de9625d43f7bf41ae00a9b87854872, type: 3}
   gameOver:
   - {fileID: 8300000, guid: d76cd9bed31a5144a9f7d22bb5d9d877, type: 3}
   scoreData:
@@ -1107,7 +1107,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: e8f2e873d9e9005429b202ede7c5b611, type: 2}
-  m_audioClip: {fileID: 8300000, guid: a4de9625d43f7bf41ae00a9b87854872, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.6
   m_Pitch: 1
