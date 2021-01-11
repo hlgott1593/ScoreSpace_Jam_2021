@@ -30,14 +30,21 @@ public class Cannon : MonoBehaviour {
     [Header("SFX")] [SerializeField] private AudioClip[] onClickHasNext;
     [SerializeField] private AudioClip[] onClickLast;
     private AudioSource audioSource;
+    private Vector2 mousePos;
 
     private void OnEnable() {
         bomb = defaultMapping;
         inputReader.FireEvent += PlaceBombs;
+        inputReader.PointerEvent += UpdateCursor;
+    }
+
+    private void UpdateCursor(InputAction.CallbackContext arg0) {
+        mousePos = arg0.ReadValue<Vector2>();
     }
 
     private void OnDisable() {
         inputReader.FireEvent -= PlaceBombs;
+        inputReader.PointerEvent -= UpdateCursor;
     }
 
     public void PlayOnClick(bool hasNext = true) {
@@ -220,12 +227,12 @@ public class Cannon : MonoBehaviour {
     /// The world space position of the mouse
     /// </summary>
     public Vector3 GetMousePos() {
-        Vector2 mouse = Mouse.current.position.ReadValue();
-        Vector3 point = mainCamera.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 0f)); //mainCamera.nearClipPlane));
+        Vector3 point = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x,mousePos.y, 0f)); //mainCamera.nearClipPlane));
         point.z = 0f;
         return point;
     }
 
+    
     /// <summary>
     /// Returns a random position within the given bounds.
     /// </summary>
