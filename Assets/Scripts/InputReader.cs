@@ -5,8 +5,8 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour, PlayerControls.IPlayerActions {
-    public event UnityAction FireEvent = delegate {  };
-    public event UnityAction<InputAction.CallbackContext> PointerEvent = delegate {  };
+    public event UnityAction FireEvent = delegate { };
+    public event UnityAction<InputAction.CallbackContext> PointerEvent = delegate { };
     private bool ShouldFire { get; set; } = false;
 
     private PlayerControls playerControls;
@@ -24,15 +24,15 @@ public class InputReader : MonoBehaviour, PlayerControls.IPlayerActions {
         playerControls.UI.Disable();
         playerControls.Player.Enable();
     }
-    
+
     public void OnFire(InputAction.CallbackContext context) {
-        if (context.performed)
-            ShouldFire = true;
-        else ShouldFire = false;
+        print(context.started + "," + context.performed + "," + context.canceled);
+
+        ShouldFire = context.performed;
     }
 
     public void OnPoint(InputAction.CallbackContext context) {
-        if(context.performed) PointerEvent.Invoke(context);
+        if (context.performed) PointerEvent.Invoke(context);
     }
 
 

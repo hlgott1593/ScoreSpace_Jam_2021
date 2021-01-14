@@ -79,6 +79,7 @@ public class Cannon : MonoBehaviour {
     }
 
     private void PlaceBombs() {
+        Debug.Log("PlaceBombs");
         if (coolDownTimer <= 0f && !shooting) {
             coolDownTimer = coolDownTime;
             shooting = true;

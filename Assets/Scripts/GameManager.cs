@@ -27,8 +27,7 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] private BombAmmoMapping bhmapping;
 
-    [Header("UI Stuff")]
-    public Text highscoreText;
+    [Header("UI Stuff")] public Text highscoreText;
     public Text scoreText;
     public Text finalScoreText;
     public GameObject GameOverScreen;
@@ -55,7 +54,7 @@ public class GameManager : MonoBehaviour {
         GameOver = false;
         TargettingNodes = transform.Find("TargettingNodes");
         BuildingsParent = transform.Find("Buildings");
-        audioSource.PlayOneShot(gameStart[Random.Range(0, gameStart.Length)]);
+        if (gameStart.Length > 0) audioSource.PlayOneShot(gameStart[Random.Range(0, gameStart.Length)]);
         // Load saved score data
         LoadScores();
     }
@@ -104,10 +103,10 @@ public class GameManager : MonoBehaviour {
             value = score
         };
         finalScoreText.text = finalScore.value.ToString();
-        if (finalScore.value > scoreData.highscore.value)
-        {
+        if (finalScore.value > scoreData.highscore.value) {
             scoreData.highscore = finalScore;
         }
+
         highscoreText.text = scoreData.highscore.value.ToString();
         // save scores
         scoreData.scores.Add(finalScore);
@@ -146,8 +145,7 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void LoadScores()
-    {
+    public void LoadScores() {
         // NOTE: Persistent Storage not working on webgl
         // string filePath = Path.Combine(Application.persistentDataPath, SCORE_FILENAME);
         // if(File.Exists(filePath))
@@ -165,11 +163,10 @@ public class GameManager : MonoBehaviour {
 
         scoreData = new ScoreData();
         scoreData.scores = new List<Score>();
-        scoreData.highscore = new Score() { value = PlayerPrefs.GetInt("highscore", 0) };
+        scoreData.highscore = new Score() {value = PlayerPrefs.GetInt("highscore", 0)};
     }
 
-    public void SaveScores()
-    {
+    public void SaveScores() {
         // NOTE: Persistent Storage not working on webgl
         // string json = JsonUtility.ToJson(scoreData);
         // // write to file
@@ -178,8 +175,7 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetInt("highscore", scoreData.highscore.value);
     }
 
-    public void DisplayText(string text, Vector3 location, Color color, int textSize = 180)
-    {
+    public void DisplayText(string text, Vector3 location, Color color, int textSize = 180) {
         GameObject go = Instantiate(popupTextPrefab) as GameObject;
         var tos = go.GetComponent<TextOnSpot>();
         tos.TextPrefab.text = text;

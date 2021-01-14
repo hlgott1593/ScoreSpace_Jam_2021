@@ -1069,8 +1069,7 @@ MonoBehaviour:
   finalScoreText: {fileID: 224222908581431588}
   GameOverScreen: {fileID: 224222908581431590}
   popupTextPrefab: {fileID: 6010603142835986959, guid: 7088f27caf8588545b398dd0cf559303, type: 3}
-  gameStart:
-  - {fileID: 8300000, guid: a4de9625d43f7bf41ae00a9b87854872, type: 3}
+  gameStart: []
   gameOver:
   - {fileID: 8300000, guid: d76cd9bed31a5144a9f7d22bb5d9d877, type: 3}
   scoreData:
@@ -1107,11 +1106,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: e8f2e873d9e9005429b202ede7c5b611, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a4de9625d43f7bf41ae00a9b87854872, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1228,7 +1227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 740, y: -87.452}
+  m_AnchoredPosition: {x: 740, y: -87.451904}
   m_SizeDelta: {x: -1628.4674, y: 174.90384}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1490770277
@@ -2081,7 +2080,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 641095493491299635, guid: f5e3fcc78dfd933409e8b7f2a10fcc16, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -4.9000244
+      value: -4.9001465
       objectReference: {fileID: 0}
     - target: {fileID: 641095493491299635, guid: f5e3fcc78dfd933409e8b7f2a10fcc16, type: 3}
       propertyPath: m_AnchoredPosition.y
